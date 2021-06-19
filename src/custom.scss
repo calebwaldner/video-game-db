@@ -1,0 +1,39 @@
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+
+// Variable overrides
+
+$custom-primary:#61892F;
+$custom-accent: #86C232;
+$custom-dark: #222629;
+$custom-secondary: #474B4F;
+$custom-light: #6B6E70;
+
+$custom-colors: (
+  "custom-primary":$custom-primary,
+  "custom-accent": $custom-accent,
+  "custom-dark": $custom-dark,
+  "custom-secondary": $custom-secondary,
+  "custom-light": $custom-light
+);
+  
+$theme-colors: map-merge($theme-colors, $custom-colors);
+  
+$body-bg: $custom-dark;
+
+$headings-font-family: 'Press Start 2P', 'cursive';
+
+$input-focus-border-color: $custom-primary;
+$input-focus-box-shadow: 0 0 0 0.1rem $custom-accent;
+
+$navbar-light-active-color: $custom-accent;
+
+// $thumbnail-padding:                 .25rem;
+$thumbnail-bg:                      $body-bg;
+// $thumbnail-border-width:            $border-width;
+// $thumbnail-border-color:            $gray-300;
+// $thumbnail-border-radius:           $border-radius;
+// $thumbnail-box-shadow:              $box-shadow-sm;
+
+@import "../node_modules/bootstrap/scss/bootstrap";
