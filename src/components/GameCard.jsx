@@ -1,9 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
 GameCard.propTypes = {
+  GameDateTags: PropTypes.elementType,
   gameData: PropTypes.shape({
+    id: PropTypes.number,
     name: PropTypes.string,
     box_art_url: PropTypes.string,
     description: PropTypes.string,
@@ -12,9 +15,10 @@ GameCard.propTypes = {
   })
 }
 
-export default function GameCard({ gameData }) {
+export default function GameCard({ GameDateTags, gameData }) {
 
   const {
+    id,
     name,
     box_art_url,
     description,
@@ -24,15 +28,13 @@ export default function GameCard({ gameData }) {
 
   // todo create a useParamName hook that returns the param version of a string
 
-  const gameParamName = "grand-theft-auto-v";
-
   const createdDate = moment(created_at).format("ll LT");
   const updatedDate = moment(updated_at).format("ll LT");
 
   return (
     <div className="mb-2">
-      <a 
-        href={`/game/${gameParamName}`}
+      <Link 
+        to={`/game/${id}`}
         className="list-group-item list-group-item-action bg-custom-secondary text-light border-custom-accent"
       >
         <div className="d-flex">
@@ -40,11 +42,12 @@ export default function GameCard({ gameData }) {
               
             <h5 className="mb-1">{name}</h5>
             
-            
-            <div><p>
-              {/* Dynamically display description or 'No description' message */}
-              {description === null ? <small className="text-muted"><em>No description</em></small> : description}
-            </p></div> 
+            <div>
+              <p>
+                {/* Dynamically display description or 'No description' message */}
+                {description === null ? <small className="text-muted"><em>No description</em></small> : description}
+              </p>
+            </div>
               
           </div>
 
@@ -54,11 +57,11 @@ export default function GameCard({ gameData }) {
         </div>
             
         <div className="d-flex flex-wrap mt-1">
-          <small className="rounded bg-custom-light w-auto px-2 text-custom-accent text-nowrap m-1">Added on: {createdDate}</small>
-          <small className="rounded bg-custom-light w-auto px-2 text-custom-accent text-nowrap m-1">Last updated: {updatedDate}</small>
+          <GameDateTags>Added on: {createdDate}</GameDateTags>
+          <GameDateTags>Last updated: {updatedDate}</GameDateTags>
         </div>
 
-      </a>
+      </Link>
 
     </div>
   )

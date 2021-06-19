@@ -17,20 +17,14 @@ export default function DefaultContainer() {
     <div className="justify-content-center m-auto" style={{"maxWidth": "700px"}}>
         
         <Switch>
-          <Route exact path="/game">
-            <Redirect to="/" />
-          </Route>
-          <Route path="/game/:game">
-            <GameDetail />
-          </Route>
-          <Route exact path="/">
-            <GameIndex />
-          </Route>
           <Route exact path="/create">
             <Create />
           </Route>
           <Route exact path="/about">
             <About />
+          </Route>
+          <Route path="/">
+            <GameIndex />
           </Route>
           <Route path="*">
             <Page404 /> 

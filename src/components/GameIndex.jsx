@@ -6,7 +6,11 @@
 // - The API returns 5 games at a time so your table should be paginated.
 
 import React from 'react';
+import PropTypes from 'prop-types';
+import { Switch, Route } from 'react-router-dom';
 import GameCard from './GameCard';
+import GameSearch from './GameSearch';
+import GameDetail from './GameDetail';
 
 
 const gameData = {
@@ -20,16 +24,34 @@ const gameData = {
 
 export default function GameIndex() {
 
+  GameDateTags.propTypes = {children: PropTypes.array}
+  function GameDateTags({children}) {
+    return (
+      <small className="rounded bg-custom-light w-auto px-2 text-custom-accent text-nowrap m-1">{children}</small>
+    )
+  }
+
   return (
     <div>
 
       <div className="container">
-        
-        <GameCard gameData={gameData}></GameCard> 
-        <GameCard gameData={gameData}></GameCard> 
-        <GameCard gameData={gameData}></GameCard> 
-        <GameCard gameData={gameData}></GameCard> 
-        
+
+        <Switch>
+
+          <Route path="/game/:id">
+            <GameDetail />
+          </Route>
+
+          <Route path="/">
+            <GameSearch></GameSearch>
+            <GameCard GameDateTags={GameDateTags} gameData={gameData}></GameCard>
+            <GameCard GameDateTags={GameDateTags} gameData={gameData}></GameCard> 
+            <GameCard GameDateTags={GameDateTags} gameData={gameData}></GameCard> 
+            <GameCard GameDateTags={GameDateTags} gameData={gameData}></GameCard> 
+          </Route>
+
+        </Switch>
+    
       </div>
       
       
