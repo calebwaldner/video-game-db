@@ -1,16 +1,16 @@
 import React from 'react';
 import { useLocation } from 'react-router';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
+import PropTypes from 'prop-types'
 
-export default function Navbar() {
+Navbar.propTypes = {
+  logout: PropTypes.func
+}
+export default function Navbar({ logout }) {
 
   const location = useLocation();
 
   return (
-    <div>
-      <div className="text-custom-primary d-flex justify-content-center text-center pt-3 mb-3">
-        <h1>Video Game Database</h1>
-      </div>
 
       <div className="menu mr-auto mb-3">
         {location.pathname !== "/login" && (
@@ -40,7 +40,7 @@ export default function Navbar() {
                     <NavLink className="nav-link" to="/about">About</NavLink>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/">Logout</a>
+                    <span className="nav-link" onClick={logout} role="button">Logout</span>
                   </li>
                 </ul>
               </div>
@@ -49,6 +49,5 @@ export default function Navbar() {
         )}
       </div>
       
-    </div>
   )
 }
