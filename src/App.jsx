@@ -105,7 +105,7 @@ function App() {
               {
                 appLoading ? 
                 <div className="d-flex justify-content-center">
-                  <div className="spinner-border text-custom-accent" style={{"margin-top": "10rem", width: "6rem", height: "6rem"}}>
+                  <div className="spinner-border text-custom-accent" style={{"marginTop": "10rem", width: "6rem", height: "6rem"}}>
                     <span className="visually-hidden" role="status" /> 
                   </div> 
                 </div> :

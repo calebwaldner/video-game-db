@@ -2,16 +2,22 @@ import React from 'react';
 import { 
   Route, 
   Switch, 
-  Redirect, 
 } from 'react-router-dom';
 import GameIndex from './GameIndex';
-import GameDetail from './GameDetail';
 import Page404 from './Page404.jsx';
 import About from './About.jsx';
 import Create from './Create';
+import PropTypes from 'prop-types';
 
-
-export default function DefaultContainer() {
+DefaultContainer.propTypes = {
+  userData: PropTypes.shape({
+    token: PropTypes.string,
+    id: PropTypes.number,
+    name: PropTypes.string,
+    email: PropTypes.string
+  })
+}
+export default function DefaultContainer({ userData }) {
   
   return (
     <div className="justify-content-center m-auto" style={{"maxWidth": "700px"}}>
@@ -24,7 +30,7 @@ export default function DefaultContainer() {
             <About />
           </Route>
           <Route path="/">
-            <GameIndex />
+            <GameIndex userData={userData}/>
           </Route>
           <Route path="*">
             <Page404 /> 

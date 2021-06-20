@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -26,10 +26,20 @@ export default function GameCard({ GameDateTags, gameData }) {
     updated_at
   } = gameData;
 
-  // todo create a useParamName hook that returns the param version of a string
+  const [createdDate, setCreatedDate] = useState(null);
+  const [updatedDate, setUpdatedDate] = useState(null);
+  const [boxArtURL, setBoxArtURL] = useState("");
 
-  const createdDate = moment(created_at).format("ll LT");
-  const updatedDate = moment(updated_at).format("ll LT");
+  useEffect(() => {
+    if (gameData !== undefined) {
+      setCreatedDate(moment(created_at).format("ll LT"));
+      setUpdatedDate(moment(updated_at).format("ll LT"));
+    }
+  }, [created_at, gameData, updated_at])
+
+  useEffect(() => {
+    gameData !== undefined && setBoxArtURL(box_art_url.replace(/{width}x{height}/, "138x190"))
+  }, [box_art_url, gameData])
 
   return (
     <div className="mb-2">
@@ -42,17 +52,18 @@ export default function GameCard({ GameDateTags, gameData }) {
               
             <h5 className="mb-1">{name}</h5>
             
-            <div>
-              <p>
-                {/* Dynamically display description or 'No description' message */}
-                {description === null ? <small className="text-muted"><em>No description</em></small> : description}
-              </p>
+            <div className="row justify-content-between">
+              <div className="col-8 d-flex flex-grow-1">
+                <p>
+                  {/* Dynamically display description or 'No description' message */}
+                  {description === null ? <small className="text-muted"><em>No description</em></small> : description}
+                </p>
+              </div>
+              <div className="col-4 w-auto">
+                <img className="img-thumbnail" src={boxArtURL} alt={`Box art for ${gameData.name}`} />
+              </div>
             </div>
               
-          </div>
-
-          <div className="">
-            <img className="img-thumbnail" src={box_art_url} alt={`Box art for ${gameData.name}`} />
           </div>
         </div>
             
