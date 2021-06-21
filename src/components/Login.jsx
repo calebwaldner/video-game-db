@@ -1,7 +1,3 @@
-// Login page
-// - Should accept an email and password.
-// - Reject invalid login attempts.
-
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 

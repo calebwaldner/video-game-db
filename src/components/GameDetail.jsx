@@ -1,6 +1,3 @@
-// Page dedicated to displaying details about one individual game.
-// Users should also be able to update the game on this page as well.
-
 import React, { 
   useEffect, 
   useState, 

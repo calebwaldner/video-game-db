@@ -29,6 +29,7 @@ function App() {
     } 
   }, [ userData ])
 
+  // Gets token from local storage on refresh
   useEffect(() => {
     const token = localStorage.getItem("user-token");
     if (token) {
@@ -38,6 +39,7 @@ function App() {
     }
   }, [])
 
+  // Stores token in local storage on login
   useEffect(() => {
     if (userData.token) {
       localStorage.setItem("user-token", JSON.stringify(userData.token));
