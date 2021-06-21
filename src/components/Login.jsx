@@ -48,62 +48,64 @@ export default function Login({getUserData}) {
   return (
     <div className="w-auto d-flex justify-content-center mt-5">
       <div className="container" style={{"maxWidth":"700px"}}>
-        <div className="d-flex flex-column">
-          <div className="m-3">
-            <label 
-              htmlFor="email" 
-              className="form-label text-custom-accent"
-            >
-              Email:
-            </label> 
-            <input 
-              id="email"
-              type="text" 
-              className="form-control" 
-              placeholder="zelda@hyrule.com" 
-              onChange={(e) => {setRequestRejected(false); setEmail(e.target.value)}}
-            />
-          </div>
+        <form>
+          <div className="d-flex flex-column">
+            <div className="m-3">
+              <label 
+                htmlFor="email" 
+                className="form-label text-custom-accent"
+              >
+                Email:
+              </label> 
+              <input 
+                id="email"
+                type="text" 
+                className="form-control" 
+                placeholder="zelda@hyrule.com" 
+                onChange={(e) => {setRequestRejected(false); setEmail(e.target.value)}}
+              />
+            </div>
 
-          <div className="m-3">
-            <label 
-              htmlFor="password" 
-              className="form-label text-custom-accent"
-            >
-              Password:
-            </label> 
-            <input 
-              type="password" 
-              className="form-control" 
-              id="password"
-              onChange={(e) => {setRequestRejected(false); setPassword(e.target.value)}}
-            />
-          </div>
+            <div className="m-3">
+              <label 
+                htmlFor="password" 
+                className="form-label text-custom-accent"
+              >
+                Password:
+              </label> 
+              <input 
+                type="password" 
+                className="form-control" 
+                id="password"
+                onChange={(e) => {setRequestRejected(false); setPassword(e.target.value)}}
+              />
+            </div>
 
-          <div className="m-3">
-            <button 
-              type="button" 
-              className="w-100 text-custom-dark btn btn-custom-accent" 
-              fontFamily="Press Start 2P"
-              onClick={() => login(email, password)}
-              disabled={loading}
-            >
-              {
-                loading ? (
-                  <><span className="spinner-border spinner-border-sm" role="status" aria-hidden={loading} />
-                  <span className="ms-2">Loading...</span></>
-                  )
-                : "Login"
+            <div className="m-3">
+              <button 
+                type="submit" 
+                className="w-100 text-custom-dark btn btn-custom-accent" 
+                fontFamily="Press Start 2P"
+                onClick={() => login(email, password)}
+                disabled={loading}
+              >
+                {
+                  loading ? (
+                    <><span className="spinner-border spinner-border-sm" role="status" aria-hidden={loading} />
+                    <span className="ms-2">Loading...</span></>
+                    )
+                  : "Login"
+                }
+                
+              </button>
+
+              { requestRejected &&
+                <p className="m-auto text-danger">{message}</p>
               }
-              
-            </button>
+            </div>
 
-            { requestRejected &&
-              <p className="m-auto text-danger">{message}</p>
-            }
           </div>
-
-        </div>
+        </form>
       </div>
     </div>
   )

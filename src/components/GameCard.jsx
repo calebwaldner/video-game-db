@@ -45,7 +45,7 @@ export default function GameCard({ GameDateTags, gameData }) {
     <div className="mb-2">
       <Link 
         to={`/game/${id}`}
-        className="list-group-item list-group-item-action bg-custom-secondary text-light border-custom-accent"
+        className="list-group-item list-group-item-action bg-custom-secondary text-light border-custom-accent rounded"
       >
         <div className="d-flex">
           <div className="w-100 h-auto d-flex flex-column">

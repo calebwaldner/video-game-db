@@ -1,16 +1,10 @@
-// Games index page
-// - Landing page after login.
-// - Should display a table of all games in the system.
-// - Should have an input for real time search to filter the list of games
-// - - Use GET /api/games?filter[search]=minecraft to have the API perform the search for you.
-// - The API returns 5 games at a time so your table should be paginated.
-
 import React, { useReducer, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import GameCard from './GameCard';
 import GameDetail from './GameDetail';
 import useGameList from './hooks/useGameList';
+import GameListPagination from './GameListPagination';
 
 GameDateTags.propTypes = {children: PropTypes.array}
 function GameDateTags({children}) {
@@ -32,6 +26,7 @@ export default function GameIndex({ userData }) {
   const initialState = {
     searchValue: "",
     searchURL: "http://161.35.15.14/api/games?page[number]=1",
+    hasData: true,
   }
 
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -42,6 +37,8 @@ export default function GameIndex({ userData }) {
         return {...prevState, searchValue: action.payload};
       case 'search-url':
         return {...prevState, searchURL: action.payload};
+      case 'has-data':
+        return {...prevState, hasData: action.payload};
       default:
         throw new Error("There was a problem with the reducer function");
     }
@@ -58,7 +55,11 @@ export default function GameIndex({ userData }) {
     } else {
       dispatch({type: "search-url", payload: initialState.searchURL})
     }
-  }, [initialState.searchURL, state.searchValue])
+  }, [initialState.searchURL, state.searchValue]);
+
+  useEffect(() => {
+    gameList !== undefined && dispatch({type: 'has-data', payload: gameList.total >= 1})
+  }, [gameList]);
 
   return (
     <div>
@@ -75,7 +76,8 @@ export default function GameIndex({ userData }) {
             <div className="mt-2 mb-4">
               <div>
                 <input 
-                  className="form-control" 
+                  value={state.searchValue}
+                  className="form-control form-control-lg bg-custom-secondary border-custom-accent text-custom-accent" 
                   onChange={(e) => {
                       dispatch({type: "search-change", payload: e.target.value})
                     }}
@@ -83,13 +85,22 @@ export default function GameIndex({ userData }) {
               </div>
             </div>
 
-            {loading || gameList === undefined ? 
-            <div className="d-flex justify-content-center">
-              <div className="spinner-border text-custom-accent" style={{"marginTop": "3rem", width: "3rem", height: "3rem"}}>
-                <span className="visually-hidden" role="status" /> 
-              </div> 
-            </div> : 
-              gameList.data.map(game => <GameCard key={game.id} GameDateTags={GameDateTags} gameData={game}></GameCard>)
+            <div className="text-custom-primary text-center">{!state.hasData && "Nothing to see here..."}</div>
+
+            {
+              loading || gameList === undefined ? 
+              <div className="d-flex justify-content-center">
+                <div className="spinner-border text-custom-accent" style={{"marginTop": "3rem", width: "3rem", height: "3rem"}}>
+                  <span className="visually-hidden" role="status" /> 
+                </div> 
+              </div> : 
+              (
+                <>
+                  <GameListPagination hasData={state.hasData} dispatch={dispatch} links={gameList.links}/>
+                  {gameList.data.map(game => <GameCard key={game.id} GameDateTags={GameDateTags} gameData={game}></GameCard>)}
+                  <GameListPagination hasData={state.hasData} dispatch={dispatch} links={gameList.links}/>
+                </>
+              )
             }
           </Route>
 

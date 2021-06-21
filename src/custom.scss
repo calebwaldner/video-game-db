@@ -18,24 +18,33 @@ $custom-colors: (
   "custom-light": $custom-light
 );
   
-$theme-colors: map-merge($theme-colors, $custom-colors);
+$theme-colors:                      map-merge($theme-colors, $custom-colors);
   
-$body-bg: $custom-dark;
+$body-bg:                           $custom-dark;
 
-$headings-font-family: 'Press Start 2P', 'cursive';
+$headings-font-family:              'Press Start 2P', 'cursive';
 
-$input-focus-border-color: $custom-primary;
-$input-focus-box-shadow: 0 0 0 0.1rem $custom-accent;
+$input-focus-border-color:          $custom-primary;
+$input-focus-box-shadow:            0 0 0 0.1rem $custom-accent;
 
-$navbar-light-active-color: $custom-accent;
+$navbar-light-active-color:         $custom-accent;
 
-
-
-// $thumbnail-padding:                 .25rem;
 $thumbnail-bg:                      $body-bg;
-// $thumbnail-border-width:            $border-width;
-// $thumbnail-border-color:            $gray-300;
-// $thumbnail-border-radius:           $border-radius;
-// $thumbnail-box-shadow:              $box-shadow-sm;
+
+$pagination-color:                  $custom-accent;
+$pagination-bg:                     $custom-secondary;
+$pagination-border-color:           $custom-primary;
+
+$pagination-hover-color:            $custom-secondary;
+$pagination-hover-bg:               $custom-accent;
+$pagination-hover-border-color:     $pagination-border-color;
+
+$pagination-active-color:           $custom-secondary;
+$pagination-active-bg:              $custom-primary;
+$pagination-active-border-color:    $pagination-border-color;
+
+$pagination-disabled-color:         $custom-light;
+$pagination-disabled-bg:            $pagination-bg;
+$pagination-disabled-border-color:  $pagination-border-color;
 
 @import "../node_modules/bootstrap/scss/bootstrap";
