@@ -23,5 +23,5 @@ export default function useGame(token, id) {
 
   }, [id, token]);
 
-  return [game, loading];
+  return [game, loading, setGame];
 }

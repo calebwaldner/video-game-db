@@ -27,6 +27,8 @@ export default function GameIndex({ userData }) {
     searchValue: "",
     searchURL: "http://161.35.15.14/api/games?page[number]=1",
     hasData: true,
+    alertMessage: "",
+    showAlert: false,
   }
 
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -39,6 +41,10 @@ export default function GameIndex({ userData }) {
         return {...prevState, searchURL: action.payload};
       case 'has-data':
         return {...prevState, hasData: action.payload};
+      case 'show-alert':
+        return {...prevState, alertMessage: action.payload, showAlert: true};
+      case 'hide-alert':
+        return {...prevState, alertMessage: "", showAlert: false};
       default:
         throw new Error("There was a problem with the reducer function");
     }
@@ -46,10 +52,7 @@ export default function GameIndex({ userData }) {
 
   const [gameList, loading] = useGameList(userData.token, state.searchURL);
 
-  console.log(gameList)
-
   useEffect(() => {
-    console.log(state.searchValue)
     if (state.searchValue.length > 0) {
       dispatch({type: "search-url", payload: `http://161.35.15.14/api/games?filter[search]=${state.searchValue}`})
     } else {
@@ -69,10 +72,21 @@ export default function GameIndex({ userData }) {
         <Switch>
 
           <Route path="/game/:id">
-            <GameDetail userData={userData} GameDateTags={GameDateTags}/>
+            <GameDetail dispatch={dispatch} userData={userData} GameDateTags={GameDateTags}/>
           </Route>
 
           <Route path="/">
+
+          {
+            state.showAlert ? 
+            <div className={`alert alert-danger alert-dismissible fade show`} role="alert">
+              {state.alertMessage}
+              <button onClick={() => dispatch({type: "hide-alert"})} type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div> :
+            null
+          }
+          
+
             <div className="mt-2 mb-4">
               <div>
                 <input 

@@ -94,7 +94,7 @@ function App() {
                   <div className="text-custom-primary d-flex justify-content-center text-center pt-3 mb-3">
                     <h1>Video Game Database</h1>
                   </div>
-                  {!appLoading && <Navbar logout={logThisUserOut}/>}
+                  {!appLoading && <Navbar userData={userData} logout={logThisUserOut}/>}
                 </div>
               </header>
             </div>

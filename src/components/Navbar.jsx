@@ -1,12 +1,18 @@
 import React from 'react';
 import { useLocation } from 'react-router';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types'
 
 Navbar.propTypes = {
+  userData: PropTypes.shape({
+    token: PropTypes.string,
+    id: PropTypes.number,
+    name: PropTypes.string,
+    email: PropTypes.string
+  }),
   logout: PropTypes.func
 }
-export default function Navbar({ logout }) {
+export default function Navbar({ userData, logout }) {
 
   const location = useLocation();
 
@@ -16,7 +22,7 @@ export default function Navbar({ logout }) {
         {location.pathname !== "/login" && (
           <nav className="navbar navbar-expand-lg navbar-light bg-custom-light rounded">
             <div className="container-fluid">
-              <span className="navbar-brand text-custom-dark">Greetings, Caleb!</span>
+              <span className="navbar-brand text-custom-dark">Greetings, {userData.name}!</span>
               <button 
                 className="navbar-toggler" 
                 type="button" 
