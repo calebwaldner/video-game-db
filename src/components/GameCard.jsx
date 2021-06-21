@@ -38,7 +38,7 @@ export default function GameCard({ GameDateTags, gameData }) {
   }, [created_at, gameData, updated_at])
 
   useEffect(() => {
-    gameData !== undefined && setBoxArtURL(box_art_url.replace(/{width}x{height}/, "138x190"))
+    gameData !== undefined && gameData.box_art_url && setBoxArtURL(box_art_url.replace(/{width}x{height}/, "138x190"))
   }, [box_art_url, gameData])
 
   return (
@@ -60,7 +60,11 @@ export default function GameCard({ GameDateTags, gameData }) {
                 </p>
               </div>
               <div className="col-4 w-auto">
-                <img className="img-thumbnail" src={boxArtURL} alt={`Box art for ${gameData.name}`} />
+                    {
+                      gameData.box_art_url === null ? 
+                      "" :
+                      <img className="img-thumbnail" src={boxArtURL} alt={`Box art for ${gameData.name}`} />
+                    }
               </div>
             </div>
               

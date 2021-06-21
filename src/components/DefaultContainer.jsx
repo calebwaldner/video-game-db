@@ -24,12 +24,12 @@ export default function DefaultContainer({ userData }) {
         
         <Switch>
           <Route exact path="/create">
-            <Create />
+            <Create token={userData.token}/>
           </Route>
           <Route exact path="/about">
             <About />
           </Route>
-          <Route path="/">
+          <Route exact path={["/", "/game/:id"]}>
             <GameIndex userData={userData}/>
           </Route>
           <Route path="*">

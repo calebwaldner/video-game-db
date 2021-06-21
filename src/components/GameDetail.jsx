@@ -50,7 +50,7 @@ export default function GameDetail({dispatch, userData, GameDateTags}) {
   }, [game, setCreatedDate, setUpdatedDate])
 
   useEffect(() => {
-    game !== undefined && setBoxArtURL(game.box_art_url.replace(/{width}x{height}/, "604x831"))
+    game !== undefined && game.box_art_url && setBoxArtURL(game.box_art_url.replace(/{width}x{height}/, "604x831"))
   }, [game]);
 
   function updateGame() {
@@ -87,6 +87,7 @@ export default function GameDetail({dispatch, userData, GameDateTags}) {
       }
     })
     .then(res => {
+      dispatch({type: "search-url", payload: `http://161.35.15.14/api/games?page[number]=1`})
       history.push("/");
     })
     .catch(() => dispatch({type: "hide-alert"}))
@@ -162,10 +163,14 @@ export default function GameDetail({dispatch, userData, GameDateTags}) {
                 </div>
                 <div className="col">
                   <div className="row">
-                    <img 
-                    src={boxArtURL}
-                    alt="Video game cover"
-                    className="img-fluid" />
+                    {
+                      game.box_art_url === null ? 
+                      <span className="text-custom-secondary"><em>No box art</em></span> :
+                      <img 
+                      src={boxArtURL}
+                      alt="Video game cover"
+                      className="img-fluid" />
+                    }
                   </div>
                 </div>
               </div>
